@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/student")
@@ -40,5 +41,14 @@ public class StudentController {
     public String saveStudent(@RequestBody Student student){
        studentRepository.save(student);
        return ("Completed saved");
+    }
+    @GetMapping("/{dniStudent}")
+    public Optional<Student> getStudentByDni(@PathVariable int dniStudent){
+        return studentRepository.findById(dniStudent);
+    }
+    @DeleteMapping("/{dniStudent}")
+    public String deleteStudentByDni(@PathVariable int dniStudent){
+        studentRepository.deleteById(dniStudent);
+        return "completed deleted";
     }
 }
